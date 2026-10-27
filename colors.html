@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Цвета — Восток-Лизинг</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body class="page-light page-neutral">
+<main class="wrap">
+  <div class="page-title">
+    <h1>Цвета</h1>
+    <p>Основой остаётся фирменный синий. Палитра построена на одном синем, его градиенте и двух светлых фонах — так бренд выглядит чисто, спокойно и технологично.</p>
+  </div>
+
+  <!-- Пропорции -->
+  <section class="section">
+    <div class="kicker">Пропорции</div>
+    <div class="section-head">
+      <h2>Светлая основа, синий акцент</h2>
+      <p>Цвета работают в заданной пропорции: светлый нейтральный (25%) — фон, как у этой страницы; белый — плашки и карточки; синий — акцент и логотип; градиент — дополнительный инструмент для digital.</p>
+    </div>
+    <div class="color-comp">
+      <div class="cc-tile cc-white" style="grid-area:w">
+        <h3>40% Белый</h3>
+        <dl class="cc-specs">
+          <dt>HEX</dt><dd><button class="cc-chip" data-copy="#FFFFFF" title="Скопировать">#FFFFFF</button></dd>
+          <dt>CMYK</dt><dd><button class="cc-chip" data-copy="0 · 0 · 0 · 0" title="Скопировать">0 · 0 · 0 · 0</button></dd>
+          <dt>Pantone</dt><dd><button class="cc-chip" data-copy="White C" title="Скопировать">White C</button></dd>
+        </dl>
+      </div>
+      <div class="cc-tile cc-light" style="grid-area:l">
+        <h3>15% Светлый голубой</h3>
+        <dl class="cc-specs">
+          <dt>HEX</dt><dd><button class="cc-chip" data-copy="#EAF1F6" title="Скопировать">#EAF1F6</button></dd>
+          <dt>CMYK</dt><dd><button class="cc-chip" data-copy="5 · 2 · 0 · 4" title="Скопировать">5 · 2 · 0 · 4</button></dd>
+          <dt>Pantone</dt><dd><span class="cc-none">—</span></dd>
+        </dl>
+      </div>
+      <div class="cc-tile cc-blue" style="grid-area:b">
+        <h3>12% Синий</h3>
+        <dl class="cc-specs">
+          <dt>HEX</dt><dd><button class="cc-chip" data-copy="#2B65AA" title="Скопировать">#2B65AA</button></dd>
+          <dt>CMYK</dt><dd><button class="cc-chip" data-copy="75 · 41 · 0 · 33" title="Скопировать">75 · 41 · 0 · 33</button></dd>
+          <dt>Pantone</dt><dd><span class="cc-none">—</span></dd>
+        </dl>
+      </div>
+      <div class="cc-tile cc-grad" style="grid-area:g">
+        <h3>8% Градиент</h3>
+        <dl class="cc-specs">
+          <dt>HEX</dt><dd><button class="cc-chip" data-copy="#2B65AA" title="Скопировать">#2B65AA</button> → <button class="cc-chip" data-copy="#4692E2" title="Скопировать">#4692E2</button></dd>
+          <dt>CMYK</dt><dd><button class="cc-chip" data-copy="69 · 35 · 0 · 11" title="Скопировать">69 · 35 · 0 · 11</button></dd>
+          <dt>Pantone</dt><dd><span class="cc-none">—</span></dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="assets/layout.js"></script>
+<script>
+  // Клик по значению — копирует его в буфер обмена
+  document.querySelectorAll(".cc-chip").forEach(btn => btn.addEventListener("click", () => {
+    btn.classList.add("is-copied");                       // галочка сразу, не ждём ответа буфера
+    setTimeout(() => btn.classList.remove("is-copied"), 1200);
+    navigator.clipboard?.writeText(btn.dataset.copy).catch(() => {});
+  }));
+</script>
+</body>
+</html>

@@ -1,0 +1,485 @@
+/* Восток-Лизинг — концепция ребрендинга.
+   Шрифт — Onest (Google Fonts). Палитра: синий #2B65AA, градиент #2B65AA → #4692E2,
+   светлый нейтральный #F2F4F5, светлый голубой #EAF1F6. */
+
+:root {
+  --bg: #ffffff;
+  --surface: #F2F4F5;        /* светлый нейтральный */
+  --surface-2: #EAF1F6;      /* светлый голубой */
+  --line: #d4d4d4;
+  --text: #1a1a1a;
+  --text-2: #6b6b6b;
+  --brand: #2B65AA;          /* основной синий */
+  --brand-2: #4692E2;        /* светлая точка градиента */
+  --brand-dark: #26599A;     /* синий при наведении */
+  --brand-grad: linear-gradient(180deg, #2B65AA, #4692E2);
+  --on-brand-2: rgba(255,255,255,.78);   /* второстепенный текст на синем */
+  --on-brand-line: rgba(255,255,255,.35);
+  --radius: 24px;
+  --radius-s: 12px;
+  --gutter: 40px;
+  --font: "Onest", -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+/* Максимальное начертание — 600 (SemiBold) */
+h1, h2, h3, h4, h5, h6, strong, b, th { font-weight: 600; }
+a { color: inherit; }
+img { max-width: 100%; display: block; }
+
+.wrap { max-width: 1280px; margin: 0 auto; padding: 0 var(--gutter); }
+
+/* ---------- Шапка ---------- */
+.header {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(255,255,255,.92);
+  backdrop-filter: blur(8px);
+}
+.header .wrap { display: flex; align-items: center; gap: 32px; height: 64px; }
+.logo-ph {   /* название компании заглавными, без знака */
+  display: inline-flex; align-items: center;
+  font-weight: 600; font-size: 18px; letter-spacing: .02em; text-decoration: none; white-space: nowrap;
+  color: var(--brand); margin-right: 32px;   /* синий; вместе с отступом шапки (32) — 64 px до разделов */
+}
+.nav { display: flex; gap: 24px; overflow-x: auto; scrollbar-width: none; }
+.nav::-webkit-scrollbar { display: none; }
+.nav a {
+  text-decoration: none; color: var(--text-2); font-size: 14px; white-space: nowrap;
+  padding: 22px 0; border-bottom: 2px solid transparent;
+}
+.nav a:hover { color: var(--text); }
+.nav a.is-active { color: var(--brand); border-bottom-color: var(--brand); }   /* активный раздел — фирменный синий */
+
+/* ---------- Заголовок страницы ---------- */
+.hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 48px 0 32px; }
+.hero h1 { font-size: 56px; line-height: 1; letter-spacing: -.02em; margin: 0 0 12px; }
+.hero .updated { color: var(--text-2); font-size: 14px; }
+.hero p { margin: 0; font-size: 18px; align-self: end; }
+
+.crumbs { display: flex; justify-content: space-between; padding-top: 32px; font-size: 14px; }
+.crumbs a { color: var(--text-2); text-decoration: none; }
+.crumbs a:hover { color: var(--text); }
+
+.page-title { padding: 24px 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.page-title h1 { font-size: 56px; line-height: 1; letter-spacing: -.02em; margin: 0; }
+.page-title p { margin: 0; font-size: 18px; }
+
+/* ---------- Переключатель направлений логотипа ---------- */
+.hero--switch { align-items: start; }
+.hero-text { margin-top: 24px; max-width: 560px; display: flex; flex-direction: column; gap: 12px; }
+.hero-text p, .hero-text ul { margin: 0; }
+.hero-text ul { padding-left: 20px; }
+.hero-text li + li { margin-top: 4px; }
+.hero--switch .switch { justify-self: end; }
+
+.switch { display: flex; gap: 4px; padding: 4px; background: var(--surface); border-radius: 26px; }
+.switch button {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 18px; border: 0; border-radius: 22px;
+  background: transparent; color: var(--text-2);
+  font: 500 14px var(--font); cursor: pointer; white-space: nowrap;
+  transition: background .2s, color .2s;
+}
+.switch button .n { font-size: 12px; opacity: .6; }
+.switch button:hover { color: var(--text); }
+.switch button.is-active { background: var(--brand); color: #fff; }
+.switch button:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+.switch button:focus:not(:focus-visible) { outline: none; }
+
+.card-art.has-img, .ph.has-img { border: 0; padding: 0; }
+.card-art img, .ph img { width: 100%; height: 100%; object-fit: contain; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+[data-dir].is-in { animation: fade-in .3s ease-out; }
+[data-dir] { flex-direction: column; }
+.dir-tag { display: block; margin-top: 4px; font-size: 11px; letter-spacing: .02em; opacity: .7; }
+.dir-note { margin: -24px 0 32px; font-size: 14px; color: var(--text-2); }
+.dir-note b { color: var(--text); font-weight: 500; }
+
+/* Компактный переключатель направлений в шапке разделов */
+.header .nav { flex: 1; min-width: 0; }
+.switch--mini { padding: 3px; border-radius: 20px; flex-shrink: 0; }
+.switch--mini button { height: 34px; padding: 0 12px; border-radius: 17px; }
+.switch--mini button .n { font-size: 13px; opacity: 1; }
+
+/* ---------- Сетка карточек на главной ---------- */
+/* Главная: нейтральный фон, белые карточки (как у Яндекс 360) */
+.page-home { background: var(--surface-2); }  /* светлый голубой #EAF1F6 */
+.page-home .footer { border-top-color: #e2e5e8; }
+.page-home .switch { background: #fff; }
+.page-home .card:not(.card--dark) { background: #fff; }
+.page-home .card:not(.card--dark):hover { background: #fff; box-shadow: 0 8px 24px rgba(16, 40, 80, .08); }
+.page-home .card:not(.card--dark) .card-art:not(.card-font) { border: 0; }
+.card.card--grad, .card.card--grad:hover { background: var(--brand-grad); }
+.card.card--grad:hover { box-shadow: 0 8px 24px rgba(16, 40, 80, .16); }
+/* Страницы на светло-голубом фоне: плашки становятся белыми */
+.page-light { background: var(--surface-2); --surface: #fff; }
+.page-light .switch--mini { background: #F2F4F5; }
+/* Страница «Логотип и знак»: без разделителей; подписи блоков — подсказка над заголовком: заглавные 16 px */
+.page-light .section, .page-light .pager, .page-light .footer { border: 0; }
+.page-light .section h2 { font-size: 32px; line-height: 1.15; letter-spacing: -.01em; }   /* все заголовки блоков — 32 px */
+/* Единый межколонник на странице «Логотип и знак» — 24 px во всех блоках */
+.page-light { --col-gap: 24px; }
+.page-light .page-title, .page-light .section-head, .page-light .split, .page-light .logo-hero-note,
+.page-light .grid-2, .page-light .grid-3, .page-light .grid-4,
+.page-light .icon-row, .page-light .steps, .page-light .before-after { column-gap: var(--col-gap); }
+.page-light .kicker { font-size: 16px; line-height: 1.3; font-weight: 500; letter-spacing: .06em; text-transform: uppercase; color: var(--text-2); margin-bottom: 12px; }
+.kicker-sep { color: var(--text-2); font-weight: 400; }
+/* Логотип-сборка: знак картинкой + название и слоган живым текстом (Onest Bold).
+   --s — высота сферы; все размеры считаются от неё по пропорциям исходного логотипа. */
+.lockup { --s: 130px; display: inline-flex; flex-direction: column; align-items: center; }
+.lockup .lockup-sign { display: block; height: calc(var(--s) * 227 / 215); width: auto; max-width: none; max-height: none; object-fit: contain; }
+.lockup-name { margin-top: calc(var(--s) * .2); font: 700 calc(var(--s) * .2326)/1 var(--font); color: #2B65AA; white-space: nowrap; letter-spacing: -.036em; }
+.lockup-slogan { margin-top: calc(var(--s) * .07); font: 400 calc(var(--s) * .13)/1.1 var(--font); color: #1A1B1F; white-space: nowrap; letter-spacing: .06em; }
+/* Знак в карточке «Логотип и знак»: плоский, на одной нижней линии с «Аа» в карточке «Шрифты».
+   Нижняя линия — 28 px от низа карточки; сфера 160 px (≈на 10% выше заглавной «А», чтобы по весу
+   не уступать буквам), низ с нависанием 1,5 px как у круглых букв, правый край — 28 px.
+   В sign-new.png вокруг сферы прозрачные поля 6 px — учтены в отступах. */
+.card-sign {
+  position: absolute;
+  width: 168.2px; right: 23.5px; bottom: 22.0px;
+  height: auto; pointer-events: none;
+}
+
+/* Крупное «Аа» в карточке шрифтов */
+.card--third .card-art.card-font {
+  border: 0; padding: 0; margin: 8px 0 -14px;   /* базовая линия «Аа» — 28 px от низа карточки */
+  align-items: flex-end; justify-content: flex-end;
+  font-size: 200px; font-weight: 500; line-height: .8; letter-spacing: -.03em;
+  color: var(--text);
+}
+
+.cards {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(6, 1fr);
+  padding-bottom: 64px;
+}
+.card {
+  position: relative; display: flex; flex-direction: column; justify-content: space-between;
+  min-height: 300px; padding: 28px;
+  background: var(--surface); border-radius: var(--radius);
+  text-decoration: none; overflow: hidden;
+  transition: background .2s;
+}
+.card:hover { background: var(--surface-2); }
+.card--wide { grid-column: span 3; }
+.card--third { grid-column: span 2; }
+.card--full { grid-column: span 6; }
+.card--dark { background: var(--brand); color: #fff; }
+.card--dark:hover { background: var(--brand-dark); }
+.card .num { font-size: 16px; color: inherit; opacity: .6; }
+.card h2 { font-size: 36px; line-height: 1.05; letter-spacing: -.01em; margin: 4px 0 0; position: relative; z-index: 1; }
+.card .card-art {
+  position: absolute; right: 24px; bottom: 24px; top: 72px; width: 45%;
+  border: 1.5px dashed var(--line); border-radius: var(--radius-s);
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  font-size: 12px; color: var(--text-2); padding: 8px;
+}
+.card--dark .card-art { border-color: var(--on-brand-line); color: var(--on-brand-2); }
+/* В узкой карточке иллюстрация идёт потоком между заголовком и кнопкой, чтобы не наезжать на них */
+.card--third { min-height: 400px; }
+.card--third .card-art { position: static; width: auto; flex: 1; min-height: 160px; margin: 16px 0; }
+.card .btn { position: relative; z-index: 1; align-self: flex-start; }
+
+/* ---------- Кнопки ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  height: 44px; padding: 0 20px; border-radius: 22px;
+  background: #fff; color: var(--text); border: 1px solid var(--line);
+  font: 500 14px var(--font); text-decoration: none; cursor: pointer;
+}
+.btn:hover { border-color: var(--text); }
+.btn--dark { background: var(--brand); color: #fff; border-color: var(--brand); }
+.btn--dark:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+.btn::before {
+  content: ""; width: 14px; height: 14px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 14h12' stroke='black' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M8 1v9m0 0L4.5 6.5M8 10l3.5-3.5M2 14h12' stroke='black' stroke-width='1.6' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.btn--plain::before { display: none; }
+
+.formats { display: flex; flex-wrap: wrap; gap: 6px; }
+.formats span {
+  font-size: 12px; padding: 4px 10px; border-radius: 8px;
+  background: #fff; border: 1px solid var(--line); color: var(--text-2);
+}
+
+/* ---------- Блоки внутри разделов ---------- */
+.section { padding: 48px 0; border-top: 1px solid var(--line); }
+.section h2 { font-size: 36px; letter-spacing: -.01em; margin: 0 0 24px; }
+.section h3 { font-size: 20px; margin: 0 0 8px; }
+.section-head { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 32px; }
+.section-head h2 { margin: 0; }
+.section-head p { margin: 0; color: var(--text-2); }
+.lead { font-size: 18px; max-width: 640px; }
+.muted { color: var(--text-2); }
+
+.grid-2, .grid-3, .grid-4 { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-3 { grid-template-columns: repeat(3, 1fr); }
+.grid-4 { grid-template-columns: repeat(4, 1fr); }
+
+.tile {
+  background: var(--surface); border-radius: var(--radius);
+  padding: 24px; display: flex; flex-direction: column; gap: 16px;
+}
+.tile--dark { background: var(--brand); color: #fff; }
+.tile--dark .muted { color: var(--on-brand-2); }
+.tile .tile-foot { margin-top: auto; display: flex; flex-direction: column; gap: 12px; }
+
+/* Заглушка под будущий контент */
+.ph {
+  border: 1.5px dashed var(--line); border-radius: var(--radius-s);
+  min-height: 180px; display: flex; align-items: center; justify-content: center;
+  text-align: center; padding: 16px; font-size: 13px; color: var(--text-2);
+}
+.tile--dark .ph { border-color: var(--on-brand-line); color: var(--on-brand-2); }
+.ph--tall { min-height: 320px; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
+.split .text { display: flex; flex-direction: column; gap: 12px; justify-content: center; padding: 24px 0; }
+.split .text > * { margin: 0; }
+.split .text > .btn, .tile-foot > .btn { align-self: flex-start; }
+.split .text > p + h3, .split .text > p + .btn, .split .text > .specs + .btn, .split .text > ul + p { margin-top: 12px; }
+
+ul.list { margin: 0; padding-left: 20px; }
+ul.list li { margin: 4px 0; }
+
+/* Табы (палитры, направления) */
+
+/* Композиция пропорций (как у Яндекс 360): размер плитки ≈ доля цвета */
+.color-comp { display: grid; gap: 16px; height: 640px;
+  grid-template-columns: 2.2fr 1fr 1fr; grid-template-rows: 1.2fr 1fr;
+  grid-template-areas: "w l l" "w b g"; }   /* светлый нейтральный (25%) — это фон страницы */
+.cc-tile { border-radius: var(--radius); padding: 20px; display: flex; flex-direction: column; justify-content: space-between; min-width: 0; }
+.cc-tile h3 { margin: 0; font-size: 28px; line-height: 1.1; font-weight: 500; letter-spacing: -.01em; }
+.cc-white { background: #fff; border: 1px solid var(--line); }
+.cc-light { background: #EAF1F6; }
+.cc-blue { background: #2B65AA; color: #fff; }
+.cc-grad { background: linear-gradient(180deg, #2B65AA, #4692E2); color: #fff; }
+.cc-specs { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 8px 12px; align-items: center; font-size: 14px; }
+.cc-specs dt { color: var(--text-2); }
+.cc-blue .cc-specs dt, .cc-grad .cc-specs dt { color: rgba(255,255,255,.75); }
+.cc-specs dd { margin: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.cc-chip { font: 500 13px var(--font); padding: 3px 8px; border-radius: 8px; border: 0; cursor: pointer;
+  background: rgba(16, 40, 80, .07); color: inherit; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cc-white .cc-chip { background: #F2F4F5; }
+.cc-blue .cc-chip, .cc-grad .cc-chip { background: rgba(255,255,255,.92); color: var(--text); }
+.cc-chip:hover { box-shadow: inset 0 0 0 1px currentColor; }
+.cc-chip.is-copied::after { content: " ✓"; }
+.cc-none { opacity: .6; }
+
+/* На светло-голубых страницах: элементы цвета фона (#EAF1F6) обводим, иначе они сливаются */
+.page-light .cc-white { border: 0; }
+.page-light .cc-light { border: 1px solid #cfd9e3; }
+
+/* Страница «Цвета»: фон — светлый нейтральный #F2F4F5 (остальное как у .page-light) */
+.page-light.page-neutral { background: #F2F4F5; }
+.page-neutral .cc-light { border: 0; }   /* голубой теперь отличается от фона — обводка не нужна */
+
+/* Карточки цветов */
+
+
+/* Шрифты */
+.specimen { font-size: 120px; line-height: 1; letter-spacing: -.03em; font-weight: 600; }
+.specs { display: flex; gap: 32px; flex-wrap: wrap; font-size: 14px; }
+.specs div span { display: block; color: var(--text-2); font-size: 12px; }
+
+/* ---------- Концепция знака (страница «Логотип и знак») ---------- */
+.kicker { font-size: 14px; color: var(--text-2); margin-bottom: 8px; }
+.section > .kicker + h2 { margin-top: 0; }
+.split .text .kicker { margin-bottom: -4px; }
+.accent-line { font-size: 22px; line-height: 1.3; font-weight: 500; }
+.tile p { margin: 0; }
+.tile h3 { margin: 0; }
+
+.pairs { margin: 0; display: grid; grid-template-columns: 140px 1fr; gap: 12px 16px; }
+.pairs dt { font-weight: 600; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; padding-top: 2px; }
+.pairs dd { margin: 0; }
+.tile--dark .pairs dd { color: var(--on-brand-2); }
+
+
+.formula { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.formula span { padding: 20px 28px; border-radius: var(--radius); background: var(--surface); font-size: 22px; font-weight: 500; }
+.formula b { font-size: 28px; font-weight: 400; color: var(--text-2); }
+
+
+
+.text-block h3 { margin: 0 0 8px; }
+
+
+
+
+/* 02 Логотип */
+.logo-hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; padding: 56px 24px; background: var(--surface); border-radius: var(--radius); }
+/* Описание под плашкой логотипа — в правой половине */
+.logo-hero-note { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 24px; }
+.logo-hero-note p { grid-column: 2; margin: 0; color: var(--text-2); }
+
+/* 03 Идея и смыслы */
+.split--top { align-items: start; }
+.icon-list { display: flex; flex-direction: column; gap: 16px; padding-top: 24px; }
+.icon-item { display: grid; grid-template-columns: 48px 1fr; gap: 16px; }
+.icon-item h3 { margin: 0 0 4px; font-size: 18px; }
+.icon-item p { margin: 0 0 4px; }
+.icon-item p.muted { font-size: 14px; }
+.icon { width: 48px; height: 48px; border-radius: 50%; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+.icon svg { width: 22px; height: 22px; fill: none; stroke: var(--text); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* 04 Было / стало */
+.before-after { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; row-gap: 8px; align-items: start; }
+/* общая сетка строк для обеих колонок: картинка / заголовок / описание / список — линии встают на одну высоту */
+.before-after .ba-item { display: grid; grid-row: span 4; grid-template-rows: subgrid; gap: 8px; }
+.ba-item { display: flex; flex-direction: column; gap: 8px; }
+.ba-item h3, .ba-item p { margin: 0; }
+.ba-item .ph { margin-bottom: 8px; }
+/* Было / стало: сферы одного размера на одной линии (размеры заданы у картинок) */
+.ba-item .media { margin-bottom: 8px; align-items: flex-start; }
+.section h2.h2-sub { font-size: 24px; line-height: 1.25; }
+/* «Идея и смыслы»: текст сверху, четыре смысла — одной строкой в 4 колонки */
+.idea-text { max-width: 640px; }
+.idea-text h2 { margin: 0; }
+.icon-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+.icon-row .icon-item { display: flex; flex-direction: column; gap: 16px; background: #fff; border-radius: var(--radius); padding: 24px; }
+.icon-row .icon { background: var(--surface-2); }   /* светло-голубой кружок, чтобы иконка читалась на белой карточке */
+.icon-row .icon-item h3 { margin: 0 0 4px; }
+.icon-row .icon-item p { margin: 0; }
+/* Списки «Мы сохраняем / Но меняем» под «Было / Стало», отделены тонкой линией */
+.ba-list { margin-top: 16px; padding-top: 24px; border-top: 1px solid #cfd9e3; display: flex; flex-direction: column; gap: 16px; }
+.ba-list h3 { margin: 0; }
+.step-arrow { font-size: 40px; color: var(--text-2); line-height: 1; }
+
+/* 05 Конструкция */
+.steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 24px; align-items: start; }
+.steps .step-arrow { margin-top: 72px; }
+/* Разделитель между шагами и текстом «Конструкция / Пластика» — как над списками «Мы сохраняем / Но меняем» */
+/* ---------- Страница «Шрифты» (структура как у Яндекс 360) ---------- */
+.page-title-text { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+.font-card { background: #fff; border-radius: var(--radius); padding: 40px; margin-bottom: 24px; display: flex; flex-direction: column; gap: 40px; }
+.font-label { font-size: 16px; font-weight: 500; }
+.font-row { display: grid; grid-template-columns: 1fr 200px; gap: var(--col-gap, 24px); align-items: center; }
+/* образец шрифта: строки без подчёркиваний */
+.specimen-lines span { display: block; color: var(--text); white-space: nowrap; }
+.specimen-lines--xl span { font-size: 80px; line-height: 1.02; font-weight: 600; letter-spacing: -.02em; }
+.specimen-lines--m span  { font-size: 40px; line-height: 1.15; font-weight: 500; letter-spacing: -.01em; }
+.specimen-lines--r p  { margin: 0; max-width: 820px; font-size: 24px; line-height: 1.45; font-weight: 400; color: var(--text); }   /* абзац с обычным переносом строк */
+.font-specs { margin: 0; display: grid; gap: 2px; font-size: 15px; }
+.font-specs dt { color: var(--brand); font-weight: 600; }
+.font-specs dd { margin: 0 0 8px; color: var(--brand); }
+/* «Цвет текста и логотипа»: логотип сверху, крупная подпись снизу */
+.tc-card { background: #fff; border-radius: var(--radius); padding: 28px; min-height: 300px; display: flex; flex-direction: column; justify-content: space-between; }
+.tc-card p { margin: 0; font-size: 24px; line-height: 1.2; font-weight: 600; }
+.tc-card--light { background: #EAF1F6; }
+.tc-card--blue { background: var(--brand); color: #fff; }
+.tl-logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 20px; letter-spacing: -.01em; color: var(--brand); }
+.tc-card--blue .tl-logo { color: #fff; }
+.tl-sign { width: 32px; height: 32px; display: block; }
+
+/* Версии знака — как у Яндекс 360: квадратные карточки, знак 80 px на трети высоты, подпись внизу слева */
+.sv-card { position: relative; aspect-ratio: 1; border-radius: var(--radius); background: #fff; padding: 20px; display: flex; align-items: flex-end; }
+.sv-card p { margin: 0; font-size: 16px; line-height: 1.2; color: var(--text-2); }
+.sv-card--blue { background: var(--brand); }
+.sv-card--dark { background: #1F2733; }
+.sv-card--blue p, .sv-card--dark p { color: rgba(255,255,255,.85); }
+.sv-sign { position: absolute; left: 50%; top: 44%; width: 84px; height: 84px; transform: translate(-50%, -50%); display: block; }
+/* одноцветные версии: форма знака из sign-new.png, цвет — из --c */
+.sv-mono { background: var(--c);
+  -webkit-mask: url("logo-new/sign-mask.png") center / contain no-repeat;
+          mask: url("logo-new/sign-mask.png") center / contain no-repeat; }   /* маска знака с полной непрозрачностью */
+
+/* Примеры использования: 2 × 2, кадры 16:9 */
+.examples .example { aspect-ratio: 16 / 9; border-radius: var(--radius); }
+/* Приглушаем насыщенный синий мокапов до насыщенности синего логотипа (≈50–60%), тон не меняется */
+.examples .example img { filter: saturate(.55) brightness(1.15); }
+.steps-notes { margin-top: 24px; padding-top: 24px; border-top: 1px solid #cfd9e3; }
+.step { display: flex; flex-direction: column; gap: 8px; }
+.step h3, .step p { margin: 0; }
+.step .ph { aspect-ratio: 1; min-height: 0; border-radius: 50%; margin: 0 auto 8px; width: min(100%, 220px); }
+.text-block { display: flex; flex-direction: column; gap: 12px; }
+.text-block p, .text-block ul { margin: 0; }
+.formula--s { flex-wrap: nowrap; }   /* чипсы всегда в одну строку */
+.formula--s span { padding: 10px 14px; font-size: 15px; white-space: nowrap; }
+.formula--s b { font-size: 20px; }
+.formula--s { gap: 8px; }
+
+
+
+
+/* Картинки из доски концепции */
+.media { border-radius: var(--radius-s); overflow: hidden; background: #fff; display: flex; align-items: center; justify-content: center; }
+.media img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+.media--cover { position: relative; }
+.media--cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; max-width: none; max-height: none; }
+.media--logo-xl { background: transparent; }
+.media--logo-xl > img { width: 280px; }
+.media--tall { min-height: 320px; }
+.media--tall > img { width: 240px; }
+.media--step { aspect-ratio: 1; width: min(100%, 180px); margin: 0 auto 8px; background: transparent; }   /* без белых плашек */
+.media--step img { width: 100%; }
+.media--xl { min-height: 440px; }
+
+
+/* Переход к соседним разделам */
+.pager { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 48px 0; border-top: 1px solid var(--line); }
+.pager a {
+  display: flex; flex-direction: column; gap: 4px; padding: 24px; border-radius: var(--radius);
+  background: var(--surface); text-decoration: none;
+}
+.pager a:hover { background: var(--surface-2); }
+.pager a span { color: var(--text-2); font-size: 14px; }
+.pager a strong { font-size: 24px; }
+.pager .next { text-align: right; }
+
+/* Подвал */
+.footer { border-top: 1px solid var(--line); padding: 24px 0 40px; font-size: 14px; color: var(--text-2); }
+.footer .wrap { display: flex; justify-content: space-between; gap: 16px; }
+.footer a { text-decoration: none; }
+
+/* ---------- Планшет ---------- */
+@media (max-width: 1024px) {
+  :root { --gutter: 24px; }
+  .card--wide { grid-column: span 3; }
+  .card--full { grid-column: span 6; }
+  .grid-4 { grid-template-columns: repeat(2, 1fr); }
+  .specimen { font-size: 88px; }
+}
+
+/* ---------- Мобильный (брейкпоинт 360) ---------- */
+@media (max-width: 720px) {
+  :root { --gutter: 16px; --radius: 20px; }
+  .header .wrap { gap: 20px; height: 56px; }
+  .nav a { padding: 18px 0; }
+  .hero, .page-title, .section-head, .split { grid-template-columns: 1fr; gap: 16px; }
+  .hero { padding: 32px 0 24px; }
+  .hero h1, .page-title h1 { font-size: 40px; }
+  .hero p, .page-title p { font-size: 16px; }
+  .hero--switch .switch { justify-self: stretch; }
+  .switch--mini button { padding: 0 10px; }
+  .switch--mini button { flex: none; }
+  .dir-note { margin: -8px 0 24px; }
+  .switch button { flex: 1; justify-content: center; padding: 0 8px; font-size: 13px; }
+  .switch button .l { display: none; }
+  .switch button .n { font-size: 14px; opacity: 1; }
+  .cards { grid-template-columns: 1fr; }
+  .card--wide, .card--third, .card--full { grid-column: auto; }
+  .card { min-height: 240px; padding: 20px; }
+  .card h2 { font-size: 28px; }
+  .card .card-art { width: 42%; top: 64px; right: 16px; bottom: 16px; }
+  .card--third { min-height: 320px; }
+  .card--third .card-art { width: auto; }
+  .section { padding: 32px 0; }
+  .section h2 { font-size: 28px; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .specimen { font-size: 64px; }
+  .pager { grid-template-columns: 1fr; }
+  .pager .next { text-align: left; }
+  .footer .wrap { flex-direction: column; }
+}
